@@ -3,9 +3,9 @@ import cmd
 """A basic console called BnkeTia"""
 
 
-class Console(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     intro = "Welcome to BB console, edit your website, Kings"
-    prompt = "BnB$ "
+    prompt = "(hbnb) "
 
     def do_help(self, arg):
         """Show help message"""
@@ -27,4 +27,4 @@ class Console(cmd.Cmd):
 
 if __name__ == "__main__":
 
-    Console().cmdloop()
+    HBNBCommand().cmdloop()
