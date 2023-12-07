@@ -7,12 +7,12 @@ class Console(cmd.Cmd):
     intro = "Welcome to BB console, edit your website, Kings"
     prompt = "BnB$ "
 
-    def yo_help(self, arg):
+    def do_help(self, arg):
         """Show help message"""
         super().do_help(arg)
 
 
-    def yo_quit(self, arg):
+    def do_quit(self, arg):
         """Setting condition to exit the console"""
         print("logging out...")
         return True
