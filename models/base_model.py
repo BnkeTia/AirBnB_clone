@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+"""A baseModule for future classes"""
+
 import uuid
 from datetime import datetime
+from models import storage
 
 # Creating an alias to avoid flake errors
 datstrpt = datetime.strptime
