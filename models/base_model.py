@@ -39,9 +39,9 @@ class BaseModel:
 
                             kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
 
-                elif key == "update_at":
+                elif key == "updated_at":
 
-                    self.__dict__["ipdate_at"] = datetime.strptime(
+                    self.__dict__["updated_at"] = datetime.strptime(
 
                             kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
 
