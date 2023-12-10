@@ -11,12 +11,16 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initialize BaseModel attributes"""
-        if kwargs:
-            for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datstrpt(value, "%Y-%m-%dT%H:%M:%S.%f"))
+        if kwargs is not None and kwargs != {}:
+            for key, value in kwargs:
+                if key == "created_at":
+                    self.__dict__["created_at"] = datetime.strptime(
+                            kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "update_at":
+                    self.__dict__["ipdate_at"] = datetime.strptime(
+                            kwags["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
                 else:
-                    setattr(self, key, value)
+                    self.__dict__[i] = kwargs[i]
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
