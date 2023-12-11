@@ -1,53 +1,96 @@
 #!/usr/bin/python3
-"""Module that defines BaseModel class and instances"""
+
+"""A baseModule for future classes"""
+
+  
+
+import uuid
 
 from datetime import datetime
-from models import storage
-from uuid import uuid4
 
+from models import storage
+
+  
+
+# Creating an alias to avoid flake errors
+
+datstrpt = datetime.strptime
+
+  
+  
 
 class BaseModel:
-    """Class that defines Base Model for Airbnb clone"""
 
-    def __init__(self, *args, **kwargs):
-        """Function to initialize instance public attributes"""
+    """superclass called BaseModel"""
 
-        if kwargs is not None and kwargs != {}:
-            for i in kwargs:
-                if i == "created_at":
-                    self.__dict__["created_at"] = datetime.strptime(
-                            kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+  
 
-                elif i == "updated_at":
-                    self.__dict__["updated_at"] = datetime.strptime(
-                            kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+    def __init__(self, *args, **kwargs):
 
-                else:
-                    self.__dict__[i] = kwargs[i]
+        """Initialize BaseModel attributes"""
 
-        else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
+        if kwargs is not None and kwargs != {}:
 
-    def __str__(self):
-        """Function that returns official string rep of instances"""
+            for key, in kwargs:
 
-        return ("[{}] ({}) {}".format(type(self).__name__,
-                self.id, self.__dict__))
+                if key == "created_at":
 
-    def save(self):
-        """Function to update public instance attributes with current date"""
+                    self.__dict__["created_at"] = datetime.strptime(
 
-        self.updated_at = datetime.now()
-        storage.save()
+                            kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
 
-    def to_dict(self):
-        """Function that returns a dict with key/value pairs of instances"""
+                elif key == "updated_at":
 
+                    self.__dict__["updated_at"] = datetime.strptime(
+
+                            kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+
+                else:
+
+                    self.__dict__[key] = kwargs[key]
+
+        else:
+
+            self.id = str(uuid.uuid4())
+
+            self.created_at = datetime.now()
+
+            self.updated_at = datetime.now()
+
+            storage.new(self)
+
+  
+
+    def __str__(self):
+
+        """Return string representation of BaseModel"""
+
+  
+
+        return "[{}] ({}) {}".\
+
+                format(type(self).__name__, self.id, self.__dict__)
+
+  
+
+    def save(self):
+
+        """Update updated_at attribute with current datetime"""
+
+        self.updated_at = datetime.now()
+
+        storage.save()
+
+  
+    def to_dict(self):
+
+        """Return dictionary representation of BaseModel instance"""
         new_dict = self.__dict__.copy()
+
         new_dict["__class__"] = type(self).__name__
+
         new_dict["created_at"] = new_dict["created_at"].isoformat()
+
         new_dict["updated_at"] = new_dict["updated_at"].isoformat()
+
         return (new_dict)

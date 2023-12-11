@@ -1,10 +1,6 @@
 #!/usr/bin/python3
-"""Module that defines State class"""
-
-from models.base_model import BaseModel
-
+"""defintion of the class state"""
 
 class State(BaseModel):
-    """Class that defines State instance attribute"""
-
+    """creation of the name instance of the state class"""
     name = ""

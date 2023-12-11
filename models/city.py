@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""Module that defines City class."""
+"""Definition for the class called city"""
+
 
 from models.base_model import BaseModel
 
-
 class City(BaseModel):
-    """Class that defines City instance attributes."""
+    """Definition of the city of the users"""
 
     state_id = ""
     name = ""

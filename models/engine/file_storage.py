@@ -1,38 +1,34 @@
+file_storage.py
 #!/usr/bin/python3
-"""File storage module for AirBnB clone."""
-
-from datetime import datetime
+"""file storage for storing and retriieving data"""
+import datetime
 import json
 import os
 
 
 class FileStorage:
-    """Class to store and retrieve data from Console."""
 
+    """storage path fo json file"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Function that returns all stored __objects."""
-
-        return (self.__objects)
+        """returns dictionary containing stored objects"""
+        return FileStorage.__objects
 
     def new(self, obj):
-        """Function that sets __objects with class-name key."""
-
-        class_key = "{}.{}".format(type(obj).__name__, obj.id)
-        self.__objects[class_key] = obj
+        """add objects to the dictionary"""
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
-        """Function that saves __objects to JSON file."""
-
-        with open(self.__file_path, "w", encoding="utf-8") as f:
-            obj = {k: v.to_dict() for k, v in self.__objects.items()}
-            json.dump(obj, f)
+        """ serializes objects to the JSON file"""
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+            d = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
+            json.dump(d, f)
 
     def classes(self):
-        """Function that returns dictionary of class instances"""
-
+        """Returns a dictionary of valid classes and references"""
         from models.base_model import BaseModel
         from models.user import User
         from models.state import State
@@ -41,35 +37,32 @@ class FileStorage:
         from models.place import Place
         from models.review import Review
 
-        classes = {"Amenity": Amenity,
-                   "BaseModel": BaseModel,
-                   "City": City,
-                   "Place": Place,
-                   "Review": Review,
+        classes = {"BaseModel": BaseModel,
                    "User": User,
-                   "State": State}
-        return (classes)
+                   "State": State,
+                   "City": City,
+                   "Amenity": Amenity,
+                   "Place": Place,
+                   "Review": Review}
+        return classes
 
     def reload(self):
-        """Function that deserializes JSON file to __objects."""
-
-        if not os.path.isfile(self.__file_path):
+        """Reloads the stored objects"""
+        if not os.path.isfile(FileStorage.__file_path):
             return
-
-        with open(self.__file_path, "r", encoding="utf-8") as f:
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             obj_dict = json.load(f)
-            obj_dict = {k: self.classes()[v["__class__"]](**v) for
-                        k, v in obj_dict.items()}
-            self.__objects = obj_dict
+            obj_dict = {k: self.classes()[v["__class__"]](**v)
+            for k, v in obj_dict.items()}
+            FileStorage.__objects = obj_dict
 
     def attributes(self):
-        """Function that returns class instances and their attributes"""
-
+        """Returns dictionary of valid attributes and their types for different class"""
         attributes = {
             "BaseModel":
                      {"id": str,
-                      "created_at": datetime,
-                      "updated_at": datetime},
+                      "created_at": datetime.datetime,
+                      "updated_at": datetime.datetime},
             "User":
                      {"email": str,
                       "password": str,
@@ -99,4 +92,4 @@ class FileStorage:
                          "user_id": str,
                          "text": str}
         }
-        return (attributes)
+        return attributes

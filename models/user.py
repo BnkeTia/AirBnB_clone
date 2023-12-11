@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-"""Module that defines the User class"""
+"""Definition of the class user"""
 
 from models.base_model import BaseModel
 
-
 class User(BaseModel):
-    """Class that defines User instance attributes"""
-
+    """creating instances for the user class"""
     email = ""
     password = ""
     first_name = ""

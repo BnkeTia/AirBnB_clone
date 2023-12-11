@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-"""Module that defines Amenity class."""
+"""A module that defines a class Amenity"""
 
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Class that defines Amenity instance atribute."""
+    """creatimg instances for the Amenity class"""
 
     name = ""

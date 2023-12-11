@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-"""Module that defines Place class."""
+"""class place"""
 
 from models.base_model import BaseModel
 
-
 class Place(BaseModel):
-    """Class that defines Place instance attribute."""
+    """creating instances for places"""
 
     city_id = ""
     user_id = ""
